@@ -1,11 +1,18 @@
 import { Button } from "@mui/material";
+import Navbar from "./Navbar";
+import Hero from "./Hero";
+import ComoFunciona from "./ComoFunciona";
+import RecetasDestacadas from "./RecetasDestacadas";
+import Footer from "./Footer";
 
 export default function App() {
-  return(
-
+  return (
     <>
-      <h1>App</h1>
-      <Button variant="contained">Mi primer boton</Button>
+      <Navbar />
+      <Hero />
+      <ComoFunciona />
+      <RecetasDestacadas />
+      <Footer/ >
     </>
   )
 
