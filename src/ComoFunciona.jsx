@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
-import CreateIcon from "@mui/icons-material/Create";
 import ShareIcon from "@mui/icons-material/Share";
+import SearchIcon from '@mui/icons-material/Search';
 
 const steps = [
   {
@@ -12,7 +12,7 @@ const steps = [
     button: "Ver ingredientes",
   },
   {
-    icon: <CreateIcon fontSize="large" />,
+    icon: <SearchIcon fontSize="large" />,
     title: "Crea tu receta",
     desc: "Publica tu receta con información nutricional automática",
     button: "Empezar receta",

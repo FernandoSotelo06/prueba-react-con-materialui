@@ -1,27 +1,44 @@
 import React from "react";
-import { Box, Typography, Grid, Card, CardContent, Button } from "@mui/material";
-
+import { Box, Typography, Card, CardContent, Button, createTheme } from "@mui/material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import './index.css'
+// Datos simulados de recetas
 const recetas = [
   {
     title: "Ensalada de quinua y garbanzos",
-    desc: "Una combinación fresca de quinua, garbanzos y vegetales",
+    desc: "Una combinación fresca de quinua, garbanzos y vegetales seleccionados.",
     tags: ["#vegano", "#alto en proteína"],
   },
   {
     title: "Pollo grillado con vegetales",
-    desc: "Pechuga de pollo acompañada de vegetales",
+    desc: "Pechuga de pollo a la plancha acompañada de vegetales seleccionados.",
     tags: ["<450 kcal", "#alto en proteína"],
   },
   {
     title: "Smoothie energizante de espinaca y mango",
-    desc: "Bebida cremosa y refrescante con espinaca y mango",
+    desc: "Bebida cremosa y refrescante con espinaca, mango y semillas de chía.",
     tags: ["#energizante", "#vitamínico"],
+  },
+  {
+    title: "Tacos de pescado",
+    desc: "Tacos frescos y saludables con pescado, aguacate y vegetales.",
+    tags: ["#omega3", "#sin gluten"],
+  },
+  {
+    title: "Sopa de lentejas",
+    desc: "Sopa nutritiva y deliciosa para los días fríos.",
+    tags: ["#alta en proteína vegetal", "#vegano"],
   },
 ];
 
 export default function RecetasDestacadas() {
   return (
     <Box sx={{ py: 8, px: 4, textAlign: "center" }}>
+      {/* Título */}
       <Typography variant="h4" fontWeight="bold">
         Recetas destacadas
       </Typography>
@@ -29,36 +46,86 @@ export default function RecetasDestacadas() {
         Descubre lo que más disfruta nuestra comunidad
       </Typography>
 
-      <Grid container spacing={4} justifyContent="center" sx={{ mt: 4 }}>
-        {recetas.map((receta, index) => (
-          <Grid item xs={12} md={4} key={index}>
-            <Card>
-              <Box sx={{ height: 150, bgcolor: "#e0e0e0" }} />
-              <CardContent>
-                <Typography variant="h6">{receta.title}</Typography>
-                <Typography variant="body2" sx={{ mt: 1 }}>
-                  {receta.desc}
-                </Typography>
-                <Box sx={{ display: "flex", gap: 1, mt: 1, flexWrap: "wrap" }}>
-                  {receta.tags.map((tag, i) => (
-                    <Typography
-                      key={i}
-                      variant="caption"
-                      sx={{ color: "primary.main" }}
-                    >
-                      {tag}
-                    </Typography>
-                  ))}
-                </Box>
-                <Button variant="outlined" sx={{ mt: 2 }}>
-                  Ver receta
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      {/* Carrusel */}
+      <Box sx={{ mt: 4 }}>
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true }}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          speed={800}
+          spaceBetween={30}
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          style={{ paddingBottom: "40px" }} // Espacio para la paginación
+        >
+          {recetas.map((receta, index) => (
+            <SwiperSlide key={index}>
+              <Card
+                sx={{
+                  maxWidth: 345,
+                  mx: "auto",
+                  borderRadius: 3,
+                  transition: "transform 0.3s ease",
+                  border: "1px solid",
+                  borderColor: "primary.light", // borde verde claro
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: 4,
+                    borderColor: "primary.main" // más intenso al hover
+                  },
+                }}
+              >
+                {/* Imagen */}
+                <Box
+                  sx={{
+                    height: 150,
+                    bgcolor: "secondary.light", // fondo verde claro en la imagen
+                    borderTopLeftRadius: 12,
+                    borderTopRightRadius: 12,
+                  }}
+                />
 
+                <CardContent>
+                  <Typography variant="h6">{receta.title}</Typography>
+                  <Typography variant="body2" sx={{ mt: 1 }}>
+                    {receta.desc}
+                  </Typography>
+                  {/* Tags */}
+                  <Box sx={{ display: "flex", gap: 1, mt: 1, flexWrap: "wrap" }}>
+                    {receta.tags.map((tag, i) => (
+                      <Typography
+                        key={i}
+                        variant="caption"
+                        sx={{ color: "primary.main" }}
+                      >
+                        {tag}
+                      </Typography>
+                    ))}
+                  </Box>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    sx={{ mt: 2, textTransform: "none" }}
+                  >
+                    Ver receta
+                  </Button>
+                </CardContent>
+              </Card>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+
+      {/* Botón final */}
       <Button variant="contained" sx={{ mt: 4 }}>
         Ver todas las recetas
       </Button>

@@ -3,15 +3,43 @@ import { Box, Typography, Button, Grid, IconButton } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import XIcon from '@mui/icons-material/X';
 
 export default function Footer() {
   return (
-    <Box sx={{ bgcolor: "#f5f5f5", py: 4, px: 4, mt: 8 }}>
+    <Box sx={{ bgcolor: "#C8E6C9", py: 4, px: 4, mt: 8 }}>
       <Grid container spacing={4} justifyContent="space-between">
         <Grid item xs={12} md={4}>
           <Typography variant="h6">Alimenta</Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
-            Recetas que inspiran, comunidad que une.
+            Recetas que inspiran,
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            comunidad que une.
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Typography variant="h6">Enlaces rapidos</Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Inicio
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Recetas
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Ingredientes
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Nosotros
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Contáctanos
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Iniciar Sesión
+          </Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Registrarse
           </Typography>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -34,6 +62,9 @@ export default function Footer() {
             </IconButton>
             <IconButton>
               <YouTubeIcon />
+            </IconButton>
+            <IconButton>
+              <XIcon />
             </IconButton>
           </Box>
         </Grid>
