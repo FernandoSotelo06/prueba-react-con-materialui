@@ -9,8 +9,6 @@ import theme from "./theme";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-// ⬇️ Tu CSS después (override)
 import "./index.css";
 
 import '@fontsource/roboto/300.css';

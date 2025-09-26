@@ -48,71 +48,117 @@ export default function RecetasDestacadas() {
 
       {/* Carrusel */}
       <Box sx={{ mt: 4 }}>
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          navigation
-          pagination={{ clickable: true }}
-          loop={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          speed={800}
-          spaceBetween={30}
-          slidesPerView={1}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          style={{ paddingBottom: "40px" }} // Espacio para la paginación
-        >
+<Swiper
+  modules={[Navigation, Pagination, Autoplay]}
+  navigation
+  pagination={{ clickable: true, type: "bullets" }}
+  loop={true}
+  autoplay={{
+    delay: 3000,
+    disableOnInteraction: false,
+  }}
+  speed={800}
+  spaceBetween={30}
+  slidesPerView={1}
+  breakpoints={{
+    640: { slidesPerView: 1 },
+    768: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 },
+  }}
+  style={{
+    paddingBottom: "40px", // espacio para bullets
+    overflow: "hidden", // ✅ Mantener oculto para evitar scroll
+  }}
+>
           {recetas.map((receta, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide style={{overflow: "visible",}} key={index}>
               <Card
                 sx={{
                   maxWidth: 345,
                   mx: "auto",
                   borderRadius: 3,
+                  height: 380, // <-- altura fija
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
                   transition: "transform 0.3s ease",
                   border: "1px solid",
-                  borderColor: "primary.light", // borde verde claro
+                  borderColor: "primary.light",
                   "&:hover": {
                     transform: "translateY(-5px)",
                     boxShadow: 4,
-                    borderColor: "primary.main" // más intenso al hover
+                    borderColor: "primary.main",
                   },
                 }}
               >
                 {/* Imagen */}
                 <Box
                   sx={{
-                    height: 150,
-                    bgcolor: "secondary.light", // fondo verde claro en la imagen
+                    height: 150, // Imagen con tamaño fijo
+                    bgcolor: "secondary.light",
                     borderTopLeftRadius: 12,
                     borderTopRightRadius: 12,
+                    flexShrink: 0, // evita que la imagen se deforme
                   }}
                 />
 
-                <CardContent>
-                  <Typography variant="h6">{receta.title}</Typography>
-                  <Typography variant="body2" sx={{ mt: 1 }}>
-                    {receta.desc}
-                  </Typography>
-                  {/* Tags */}
-                  <Box sx={{ display: "flex", gap: 1, mt: 1, flexWrap: "wrap" }}>
-                    {receta.tags.map((tag, i) => (
-                      <Typography
-                        key={i}
-                        variant="caption"
-                        sx={{ color: "primary.main" }}
-                      >
-                        {tag}
-                      </Typography>
-                    ))}
+                {/* Contenido */}
+                <CardContent
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="h6" noWrap>
+                      {receta.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        mt: 1,
+                        overflow: "hidden",
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 3, // Máximo 3 líneas
+                      }}
+                    >
+                      {receta.desc}
+                    </Typography>
+
+                    {/* Tags */}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 1,
+                        mt: 1,
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {receta.tags.map((tag, i) => (
+                        <Typography
+                          key={i}
+                          variant="caption"
+                          sx={{
+                            color: "primary.dark",
+                            bgcolor: "primary.light",
+                            px: 1.2,
+                            py: 0.3,
+                            borderRadius: 2,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {tag}
+                        </Typography>
+                      ))}
+                    </Box>
                   </Box>
+
+                  {/* Botón siempre alineado abajo */}
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     fullWidth
                     sx={{ mt: 2, textTransform: "none" }}
                   >
