@@ -5,33 +5,44 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import './index.css'
+import '../index.css'
+import ensaladaImg from "../assets/recetas/ensalada-quinua-garbanzos.jpg";
+import polloImg from "../assets/recetas/pollo-ensalada.jpg";
+import smothieImg from "../assets/recetas/smothie.jpg";
+import sopalentejasImg from "../assets/recetas/sopa-lentejas.jpg";
+import tacosImg from "../assets/recetas/tacos.jpg";
+
 // Datos simulados de recetas
 const recetas = [
   {
     title: "Ensalada de quinua y garbanzos",
     desc: "Una combinación fresca de quinua, garbanzos y vegetales seleccionados.",
     tags: ["#vegano", "#alto en proteína"],
+    image: ensaladaImg,
   },
   {
     title: "Pollo grillado con vegetales",
     desc: "Pechuga de pollo a la plancha acompañada de vegetales seleccionados.",
     tags: ["<450 kcal", "#alto en proteína"],
+    image: polloImg,
   },
   {
     title: "Smoothie energizante de espinaca y mango",
     desc: "Bebida cremosa y refrescante con espinaca, mango y semillas de chía.",
     tags: ["#energizante", "#vitamínico"],
+    image: smothieImg,
   },
   {
     title: "Tacos de pescado",
     desc: "Tacos frescos y saludables con pescado, aguacate y vegetales.",
     tags: ["#omega3", "#sin gluten"],
+    image: tacosImg,
   },
   {
     title: "Sopa de lentejas",
     desc: "Sopa nutritiva y deliciosa para los días fríos.",
     tags: ["#alta en proteína vegetal", "#vegano"],
+    image: sopalentejasImg,
   },
 ];
 
@@ -48,36 +59,36 @@ export default function RecetasDestacadas() {
 
       {/* Carrusel */}
       <Box sx={{ mt: 4 }}>
-<Swiper
-  modules={[Navigation, Pagination, Autoplay]}
-  navigation
-  pagination={{ clickable: true, type: "bullets" }}
-  loop={true}
-  autoplay={{
-    delay: 3000,
-    disableOnInteraction: false,
-  }}
-  speed={800}
-  spaceBetween={30}
-  slidesPerView={1}
-  breakpoints={{
-    640: { slidesPerView: 1 },
-    768: { slidesPerView: 2 },
-    1024: { slidesPerView: 3 },
-  }}
-  style={{
-    paddingBottom: "40px", // espacio para bullets
-    overflow: "hidden", // ✅ Mantener oculto para evitar scroll
-  }}
->
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true, type: "bullets" }}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          speed={800}
+          spaceBetween={30}
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          style={{
+            paddingBottom: "40px", 
+            overflow: "hidden", 
+          }}
+        >
           {recetas.map((receta, index) => (
-            <SwiperSlide style={{overflow: "visible",}} key={index}>
+            <SwiperSlide style={{ overflow: "visible" }} key={index}>
               <Card
                 sx={{
                   maxWidth: 345,
                   mx: "auto",
                   borderRadius: 3,
-                  height: 380, // <-- altura fija
+                  height: 380,
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -91,14 +102,18 @@ export default function RecetasDestacadas() {
                   },
                 }}
               >
-                {/* Imagen */}
+                {/* Imagen dinámica */}
                 <Box
+                  component="img"
+                  src={receta.image}
+                  alt={receta.title}
                   sx={{
-                    height: 150, // Imagen con tamaño fijo
-                    bgcolor: "secondary.light",
+                    height: 150,
+                    width: "100%",
+                    objectFit: "cover",
                     borderTopLeftRadius: 12,
                     borderTopRightRadius: 12,
-                    flexShrink: 0, // evita que la imagen se deforme
+                    flexShrink: 0,
                   }}
                 />
 

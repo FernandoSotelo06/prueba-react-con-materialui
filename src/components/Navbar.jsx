@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -15,21 +16,20 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import logosmallImg from "../assets/logo/logo-small.jpg";
 
 export default function Navbar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md")); // md ~ 900px
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  // Estado para abrir/cerrar el Drawer
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  // Opciones de menú
   const menuItems = [
-    "Inicio",
-    "Recetas",
-    "Ingredientes",
-    "Nosotros",
-    "Contáctanos",
+    { label: "Inicio", path: "/" },
+    { label: "Recetas", path: "/recetas" },
+    { label: "Ingredientes", path: "/ingredientes" },
+    { label: "Nosotros", path: "/nosotros" },
+    { label: "Contáctanos", path: "/contacto" },
   ];
 
   return (
@@ -48,23 +48,32 @@ export default function Navbar() {
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* Logo */}
-          <Typography variant="h6" fontWeight="bold" color="primary">
-            Alimenta
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <img
+              src={logosmallImg}
+              alt="Logo Alimenta"
+              style={{ height: 40, borderRadius: "50%" }}
+            />
+            <Typography variant="h6" fontWeight="bold" color="primary">
+              Alimenta
+            </Typography>
+          </Box>
 
           {/* Menú desktop */}
           {!isMobile && (
             <Box sx={{ display: "flex", gap: 3 }}>
               {menuItems.map((item) => (
                 <Button
-                  key={item}
+                  key={item.label}
+                  component={Link}
+                  to={item.path}
                   color="primary"
                   sx={{
                     fontWeight: 500,
                     "&:hover": { backgroundColor: theme.palette.primary.light },
                   }}
                 >
-                  {item}
+                  {item.label}
                 </Button>
               ))}
             </Box>
@@ -73,16 +82,26 @@ export default function Navbar() {
           {/* Botones de acción desktop */}
           {!isMobile && (
             <Box sx={{ display: "flex", gap: 1 }}>
-              <Button variant="outlined" color="primary">
+              <Button
+                variant="outlined"
+                color="primary"
+                component={Link}
+                to="/login"
+              >
                 Iniciar Sesión
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/register"
+              >
                 Registrarse
               </Button>
             </Box>
           )}
 
-          {/* Ícono hamburguesa en móvil */}
+          {/* Menú hamburguesa móvil */}
           {isMobile && (
             <IconButton color="primary" onClick={() => setOpenDrawer(true)}>
               <MenuIcon />
@@ -91,7 +110,7 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer (menú lateral móvil) */}
+      {/* Drawer móvil */}
       <Drawer
         anchor="right"
         open={openDrawer}
@@ -109,28 +128,43 @@ export default function Navbar() {
         </Typography>
         <Divider />
 
-        {/* Opciones de menú */}
         <List>
           {menuItems.map((item) => (
             <ListItem
               button
-              key={item}
+              key={item.label}
+              component={Link}
+              to={item.path}
               onClick={() => setOpenDrawer(false)}
-              sx={{ borderRadius: 2, "&:hover": { backgroundColor: theme.palette.primary.light } }}
+              sx={{
+                borderRadius: 2,
+                "&:hover": { backgroundColor: theme.palette.primary.light },
+              }}
             >
-              <ListItemText primary={item} />
+              <ListItemText primary={item.label} />
             </ListItem>
           ))}
         </List>
 
         <Divider sx={{ my: 2 }} />
 
-        {/* Botones de acción en Drawer */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <Button variant="outlined" color="primary" fullWidth>
+          <Button
+            variant="outlined"
+            color="primary"
+            component={Link}
+            to="/login"
+            fullWidth
+          >
             Iniciar Sesión
           </Button>
-          <Button variant="contained" color="primary" fullWidth>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/register"
+            fullWidth
+          >
             Registrarse
           </Button>
         </Box>

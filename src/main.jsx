@@ -1,11 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom"; // ✅ IMPORTANTE
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./theme";
+import theme from "./theme/theme.js";
 
-// ⬇️ Swiper CSS primero
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -16,13 +14,13 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import App from "./App.jsx";
 
-
-import App from './App.jsx'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-<ThemeProvider theme={theme}>
-  <CssBaseline/> {/* Resetea estilos y aplica fondo */}
-  <App />
-</ThemeProvider>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter> {/* ✅ Debe envolver a toda la app */}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </BrowserRouter>
 );

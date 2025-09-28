@@ -1,30 +1,22 @@
-import { Button, Box } from "@mui/material";
-import Navbar from "./Navbar";
-import Hero from "./Hero";
-import ComoFunciona from "./ComoFunciona";
-import RecetasDestacadas from "./RecetasDestacadas";
-import Footer from "./Footer";
-import Unete from "./Unete";
-import Ingredientes from "./Ingredientes";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import './index.css'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default function App() {
   return (
     <>
+      {/* Navbar aparece en todas las páginas */}
       <Navbar />
-      <Box sx={{ mt: 10 }}>
-        <Hero />
-        <ComoFunciona />
-        <RecetasDestacadas />
-        <Ingredientes />
-        <Unete />
-        <Footer />
-      </Box>
-
+      
+      {/* Rutas */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
-  )
-
+  );
 }
